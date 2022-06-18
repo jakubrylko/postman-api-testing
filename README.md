@@ -11,3 +11,6 @@ Simple Book is an API created by Postman for educational purposes which we can u
 
 ## 4. [JavaScript Training](https://github.com/jakubrylko/postman-api-testing/blob/main/javascript-training.json)
 This collection was created as an exercise while learning the basics of JavaScript programming for Postman based on the online course by [Valentin Despa](https://github.com/vdespa). Link to the [course](https://www.youtube.com/watch?v=juuhb3W8xT4&ab_channel=ValentinDespa).
+
+## 5. [REST API Testing Udemy Course]
+This collection was created during a comprehensive REST API testing course on the [Udemy](https://www.udemy.com/) platform. Link to the [course](https://www.udemy.com/course/rest-assured-java/). It contains multiple Postman excersies.

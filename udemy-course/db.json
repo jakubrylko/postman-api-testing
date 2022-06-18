@@ -1,0 +1,64 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "Pierwszy post",
+      "author": "Jakub I"
+    },
+    {
+      "title": "Test Post",
+      "author": "Author Test",
+      "id": 2
+    },
+    {
+      "id": 3,
+      "title": "Test Post Update",
+      "author": "Michał III"
+    },
+    {
+      "title": "Test post",
+      "author": "Antonette",
+      "id": 5
+    },
+    {
+      "title": "{{title}}",
+      "author": "{{author}}",
+      "id": 6
+    }
+  ],
+  "comments": [
+    {
+      "body": "Komentarz 1 Post 2",
+      "postId": 2,
+      "id": 1
+    },
+    {
+      "body": "Testowy komentarz PUT",
+      "postId": 1,
+      "id": 2
+    },
+    {
+      "body": "Testowy komentarz PATCH",
+      "postId": 2,
+      "id": 3
+    },
+    {
+      "body": "Komentarz 5 Post 3",
+      "postId": 3,
+      "id": 5
+    },
+    {
+      "body": "Testowy komentarz PUT",
+      "postId": 1,
+      "id": 7
+    },
+    {
+      "body": "{{body}}",
+      "postId": 5,
+      "id": 8
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

@@ -1,0 +1,428 @@
+{
+	"info": {
+		"_postman_id": "ee497f32-12c0-4818-9136-c548a9c3a1c4",
+		"name": "BOOKER API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20601120"
+	},
+	"item": [
+		{
+			"name": "Create token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Set token variable\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.collectionVariables.set('token', response.token);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"password123\"\r\n}"
+				},
+				"url": {
+					"raw": "{{bookerUrl}}/auth",
+					"host": [
+						"{{bookerUrl}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get booking list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Count booking id's\", () => {\r",
+							"    const response = pm.response.json();\r",
+							"    let objectCount = Object.keys(response).length;\r",
+							"    console.log(`Objects number: ${objectCount}`);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{bookerUrl}}/booking",
+					"host": [
+						"{{bookerUrl}}"
+					],
+					"path": [
+						"booking"
+					],
+					"query": [
+						{
+							"key": "firstname",
+							"value": "Sally",
+							"disabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "Brown",
+							"disabled": true
+						},
+						{
+							"key": "checkin",
+							"value": "2020-01-01",
+							"disabled": true
+						},
+						{
+							"key": "checkout",
+							"value": "2022-01-01",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Set bookingId variable\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    pm.collectionVariables.set('bookingId', response.bookingid);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.test(\"Increment booking number\", () => {\r",
+							"    let bookingNo = pm.collectionVariables.get(\"bookingNo\");\r",
+							"    bookingNo++;\r",
+							"    pm.collectionVariables.set(\"bookingNo\", bookingNo);\r",
+							"    console.log(bookingNo);\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\": \"Jakub\",\r\n    \"lastname\": \"Rylko\",\r\n    \"totalprice\": 100,\r\n    \"depositpaid\": true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2019-01-01\",\r\n        \"checkout\" :\"2020-01-01\"\r\n    },\r\n    \"additionalneeds\": \"Booking {{bookingNo}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bookerUrl}}/booking",
+					"host": [
+						"{{bookerUrl}}"
+					],
+					"path": [
+						"booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get one booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"First name test\", () => {\r",
+							"    pm.expect(pm.response.json().firstname).to.eql(\"Jakub\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{bookerUrl}}/booking/:bookingId",
+					"host": [
+						"{{bookerUrl}}"
+					],
+					"path": [
+						"booking",
+						":bookingId"
+					],
+					"variable": [
+						{
+							"key": "bookingId",
+							"value": "{{bookingId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Update test\", () => {\r",
+							"    pm.expect(pm.response.json().additionalneeds).to.contain(\"Updated booking\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "token={{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\" : \"Jakub\",\r\n    \"lastname\" : \"Rylko\",\r\n    \"totalprice\" : 100,\r\n    \"depositpaid\" : true,\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"2019-01-01\",\r\n        \"checkout\" : \"2020-01-01\"\r\n    },\r\n    \"additionalneeds\" : \"Updated booking {{bookingNo}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bookerUrl}}/booking/:bookingId",
+					"host": [
+						"{{bookerUrl}}"
+					],
+					"path": [
+						"booking",
+						":bookingId"
+					],
+					"variable": [
+						{
+							"key": "bookingId",
+							"value": "{{bookingId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Partial update booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Partial update test\", () => {\r",
+							"    pm.expect(pm.response.json().additionalneeds).to.contain(\"Partial updated booking\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"additionalneeds\": \"Partial updated booking {{bookingNo}}\"\r\n}"
+				},
+				"url": {
+					"raw": "{{bookerUrl}}/booking/:bookingId",
+					"host": [
+						"{{bookerUrl}}"
+					],
+					"path": [
+						"booking",
+						":bookingId"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "bookingId",
+							"value": "{{bookingId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete booking",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "token={{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{bookerUrl}}/booking/:bookingId",
+					"host": [
+						"{{bookerUrl}}"
+					],
+					"path": [
+						"booking",
+						":bookingId"
+					],
+					"variable": [
+						{
+							"key": "bookingId",
+							"value": "{{bookingId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Health check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{bookerUrl}}/ping",
+					"host": [
+						"{{bookerUrl}}"
+					],
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Successful request\", () => {",
+					"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "bookerUrl",
+			"value": "https://restful-booker.herokuapp.com"
+		},
+		{
+			"key": "bookingId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "bookingid",
+			"value": ""
+		},
+		{
+			"key": "bookingNo",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

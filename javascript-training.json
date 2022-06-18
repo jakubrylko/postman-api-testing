@@ -1,0 +1,242 @@
+{
+	"info": {
+		"_postman_id": "6ba7d11d-4afd-4654-9456-562ad377d2ad",
+		"name": "JS TRAINING",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20601120"
+	},
+	"item": [
+		{
+			"name": "Test 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Inicjalizacja i przypisanie wartości do zmiennych\r",
+							"let firstName = 'John';\r",
+							"let lastName = 'Doe';\r",
+							"\r",
+							"// Łączenie wartości dwóch zmiennych\r",
+							"let fullName = firstName + ' ' + lastName;\r",
+							"let name = `${firstName} ${lastName}`;\r",
+							"\r",
+							"// Przypisanie wartości do stałej i wypisanie w konsoli\r",
+							"const age = 30;\r",
+							"console.log(name, age);\r",
+							"\r",
+							"// Przykład instrukcji warunkowej IF - ELSE\r",
+							"if (firstName === 'John' || age <= 30) {\r",
+							"    console.log('This is John!')\r",
+							"}\r",
+							"else {\r",
+							"    console.log('This is not John!')\r",
+							"};"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/get",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Utworzenie obiektu \r",
+							"let person = {\r",
+							"    firstName: ['John', ' Mary'],\r",
+							"    lastName: 'Doe',\r",
+							"    age: 30,\r",
+							"    socialProfiles: ['Facebook', 'Tiktok', 'Instagram'],\r",
+							"    sayHello: function () {\r",
+							"        console.log(`Hello ${this.firstName}!`);\r",
+							"    }\r",
+							"}; \r",
+							"\r",
+							"// Wywołanie funkcji z obiektu person\r",
+							"person.sayHello();\r",
+							"\r",
+							"// Dodanie do listy socialProfiles nowych wartości\r",
+							"person.socialProfiles.push(\"YouTube\", \"Linkedin\");\r",
+							"\r",
+							"// Wylistowanie wszystkich socialProfiles\r",
+							"for (let i=0; i<person.socialProfiles.length; i++) {\r",
+							"    console.log(person.socialProfiles[i]);\r",
+							"}\r",
+							"\r",
+							"// Sprawdzenie czy lista socialProfiles zawiera YouTube\r",
+							"let hasYouTube = false;\r",
+							"person.socialProfiles.forEach((item, index, array) => {\r",
+							"   if (item === 'YouTube') {\r",
+							"       hasYouTube = true;\r",
+							"       console.log(\"Has Youtube: \" + hasYouTube);\r",
+							"   }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/get",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mock 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test statusu odpowiedzi\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Przypisanie body odpowiedzi do stałej\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"// Test wartości imienia\r",
+							"pm.test(\"Testing name\", () => {\r",
+							"    pm.expect(response.name).to.eql('Jane');\r",
+							"});\r",
+							"\r",
+							"// Sprawdzenie isntagramu\r",
+							"pm.test(\"Testing instagram\", () => {\r",
+							"    let hasInstagram = false;\r",
+							"    response.socialMedia.forEach((item) => {\r",
+							"        if (item === 'Instagram') {\r",
+							"            hasInstagram = true;\r",
+							"        }\r",
+							"    });\r",
+							"    pm.expect(hasInstagram).to.eql(true);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://run.mocky.io/v3/0d6b61f9-a2db-4286-964a-9460db039204",
+					"protocol": "https",
+					"host": [
+						"run",
+						"mocky",
+						"io"
+					],
+					"path": [
+						"v3",
+						"0d6b61f9-a2db-4286-964a-9460db039204"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mock 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Przypisanie body odpowiedzi do stałej\r",
+							"const response = pm.response.json();\r",
+							"const results = response.Response.Data[0].Results;\r",
+							"\r",
+							"// Sprawdzenie czy adres jest aktywny\r",
+							"let hasOneActiveAddress = false;\r",
+							"results.forEach((result) => {\r",
+							"    if (result.Address.Active === true) {\r",
+							"        hasOneActiveAddress = true;\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"// Test aktywnego adresu\r",
+							"pm.test(\"Acitve address\", () => {\r",
+							"  pm.expect(hasOneActiveAddress).to.eql(true);  \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://run.mocky.io/v3/62aa820c-8e42-43e7-8897-6f154b253711",
+					"protocol": "https",
+					"host": [
+						"run",
+						"mocky",
+						"io"
+					],
+					"path": [
+						"v3",
+						"62aa820c-8e42-43e7-8897-6f154b253711"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "httpbin.org",
+			"type": "string"
+		}
+	]
+}

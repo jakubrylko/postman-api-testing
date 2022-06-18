@@ -1,1 +1,3 @@
-# Postman API Testing Exercises
+# API Testing with Postman
+
+## 1. Booker 

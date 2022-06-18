@@ -1,1 +1,1 @@
-# Potman API Testing Exercises
+# Postman API Testing Exercises

@@ -1,0 +1,229 @@
+{
+	"info": {
+		"_postman_id": "9d07dfdb-249d-4dad-acb9-1f140290f3f5",
+		"name": "DUMMY API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20601120"
+	},
+	"item": [
+		{
+			"name": "Get all employees",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Count employees\", () => {\r",
+							"    const response = pm.response.json().data;\r",
+							"    let empCount = Object.keys(response).length;\r",
+							"    console.log(`Employee number: ${empCount}`);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dummyUrl}}/employees",
+					"host": [
+						"{{dummyUrl}}"
+					],
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Set employeeId variable\", () => {\r",
+							"    let employeeId = pm.response.json().data.id;\r",
+							"    console.log(employeeId);\r",
+							"    pm.collectionVariables.set(\"employeeId\", employeeId);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Successfull message test\", () => {\r",
+							"    pm.expect(pm.response.json().message).to.include(\"Successfully!\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{$randomFirstName}}\",\r\n    \"salary\": \"3000\",\r\n    \"age\": \"30\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{dummyUrl}}/create",
+					"host": [
+						"{{dummyUrl}}"
+					],
+					"path": [
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get one employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successfull message test\", () => {\r",
+							"    pm.expect(pm.response.json().message).to.include(\"Successfully!\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dummyUrl}}/employee/:employeeId",
+					"host": [
+						"{{dummyUrl}}"
+					],
+					"path": [
+						"employee",
+						":employeeId"
+					],
+					"variable": [
+						{
+							"key": "employeeId",
+							"value": "{{employeeId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successfull status test\", () => {\r",
+							"    pm.expect(pm.response.json().status).to.include(\"success\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Updated name\",\r\n    \"salary\": \"3000\",\r\n    \"age\": \"30\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{dummyUrl}}/update/:employeeId",
+					"host": [
+						"{{dummyUrl}}"
+					],
+					"path": [
+						"update",
+						":employeeId"
+					],
+					"variable": [
+						{
+							"key": "employeeId",
+							"value": "{{employeeId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete employee",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{dummyUrl}}/delete/:employeeId",
+					"host": [
+						"{{dummyUrl}}"
+					],
+					"path": [
+						"delete",
+						":employeeId"
+					],
+					"variable": [
+						{
+							"key": "employeeId",
+							"value": "{{employeeId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Successful request\", () => {",
+					"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "dummyUrl",
+			"value": "http://dummy.restapiexample.com/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "employeeId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

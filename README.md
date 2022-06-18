@@ -8,5 +8,5 @@ Dummy API is fake online REST API for testing and prototyping sample application
 
 ## 3. [JavaScript Exercises]
 
-## 4. [JavaScript Exercises]
+## 4. [JavaScript Training](https://github.com/jakubrylko/postman-api-testing/blob/main/javascript-training.json)
 This collection was created as an exercise while learning the basics of JavaScript programming for Postman based on the online course by [Valentin Despa](https://github.com/vdespa). Link to the [course](https://www.youtube.com/watch?v=juuhb3W8xT4&ab_channel=ValentinDespa).

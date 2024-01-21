@@ -2,53 +2,53 @@
   "posts": [
     {
       "id": 1,
-      "title": "Pierwszy post",
-      "author": "Jakub I"
+      "title": "Frist post",
+      "author": "Jacob I"
     },
     {
       "id": 2,
-      "title": "Drugi post",
-      "author": "Stefan II"
+      "title": "Second post",
+      "author": "John II"
     },
 	{
       "id": 3,
-      "title": "Trzeci post",
-      "author": "Michał III"
+      "title": "Third post",
+      "author": "Mike III"
     },
     {
       "id": 4,
-      "title": "Czwarty post",
-      "author": "Andrzej IV"
+      "title": "Fourth post",
+      "author": "Andrew IV"
     }
   ],
   "comments": [
     {
-      "body": "Komentarz 1 Post 2",
+      "body": "Comment 1 Post 2",
       "postId": 2,
       "id": 1
     },
     {
-      "body": "Komentarz 2 Post 1",
+      "body": "Comment 2 Post 1",
       "postId": 1,
       "id": 2
     },
     {
-      "body": "Komentarz 3 Post 2",
+      "body": "Comment 3 Post 2",
       "postId": 2,
       "id": 3
     },
     {
-      "body": "Komentarz 4 Post 3",
+      "body": "Comment 4 Post 3",
       "postId": 3,
       "id": 4
     },
     {
-      "body": "Komentarz 5 Post 3",
+      "body": "Comment 5 Post 3",
       "postId": 3,
       "id": 5
     },
     {
-      "body": "Komentarz 6 Post 4",
+      "body": "Comment 6 Post 4",
       "postId": 4,
       "id": 6
     }
